@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package url;
 
-option go_package = "auth.v1";
+option go_package = "url.v1";
 
 service UrlShortenService {
   rpc CreateShortUrl(OriginalUrl) returns (ShortUrl);

@@ -11,6 +11,7 @@ type (
 		Postgres    Postgres    `json:"postgres"`
 		Redis       Redis       `json:"redis"`
 		HTTTPServer HTTTPServer `json:"http_server"`
+		GRPCServer  GRPCServer  `json:"grpc_server"`
 	}
 
 	Postgres struct {
@@ -28,6 +29,10 @@ type (
 		Hostname   string `json:"hostname"`
 		Port       string `json:"port"`
 		TypeServer string `json:"type_server"`
+	}
+
+	GRPCServer struct {
+		Port string `json:"port"`
 	}
 )
 
@@ -51,6 +56,9 @@ func New() (*Config, error) {
 			Hostname:   os.Getenv("HTTP_HOSTNAME"),
 			Port:       os.Getenv("HTTP_PORT"),
 			TypeServer: os.Getenv("HTTP_TYPE_SERVER"),
+		},
+		GRPCServer: GRPCServer{
+			Port: os.Getenv("GRPC_SERVER_PORTs"),
 		},
 	}
 
