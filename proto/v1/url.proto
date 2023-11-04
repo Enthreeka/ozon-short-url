@@ -1,2 +1,18 @@
 syntax = "proto3";
 
+package url;
+
+option go_package = "auth.v1";
+
+service UrlShortenService {
+  rpc CreateShortUrl(OriginalUrl) returns (ShortUrl);
+  rpc GetOriginalUrl(ShortUrl) returns (OriginalUrl);
+}
+
+message OriginalUrl {
+  string URL = 1;
+}
+
+message ShortUrl {
+  string shortURL = 1;
+}
