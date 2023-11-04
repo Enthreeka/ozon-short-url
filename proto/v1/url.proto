@@ -5,14 +5,22 @@ package url;
 option go_package = "url.v1";
 
 service UrlShortenService {
-  rpc CreateShortUrl(OriginalUrl) returns (ShortUrl);
-  rpc GetOriginalUrl(ShortUrl) returns (OriginalUrl);
+  rpc CreateShortUrl(OriginalUrlRequest) returns (ShortUrlResponse);
+  rpc GetOriginalUrl(ShortUrlRequest) returns (OriginalUrlResponse);
 }
 
-message OriginalUrl {
+message OriginalUrlRequest {
   string URL = 1;
 }
 
-message ShortUrl {
-  string shortURL = 1;
+message ShortUrlResponse {
+  string URL = 1;
+}
+
+message OriginalUrlResponse {
+  string URL = 1;
+}
+
+message ShortUrlRequest  {
+  string URL = 1;
 }

@@ -20,7 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type OriginalUrl struct {
+type OriginalUrlRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -28,8 +28,8 @@ type OriginalUrl struct {
 	URL string `protobuf:"bytes,1,opt,name=URL,proto3" json:"URL,omitempty"`
 }
 
-func (x *OriginalUrl) Reset() {
-	*x = OriginalUrl{}
+func (x *OriginalUrlRequest) Reset() {
+	*x = OriginalUrlRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_v1_url_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -37,13 +37,13 @@ func (x *OriginalUrl) Reset() {
 	}
 }
 
-func (x *OriginalUrl) String() string {
+func (x *OriginalUrlRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*OriginalUrl) ProtoMessage() {}
+func (*OriginalUrlRequest) ProtoMessage() {}
 
-func (x *OriginalUrl) ProtoReflect() protoreflect.Message {
+func (x *OriginalUrlRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_v1_url_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -55,28 +55,28 @@ func (x *OriginalUrl) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use OriginalUrl.ProtoReflect.Descriptor instead.
-func (*OriginalUrl) Descriptor() ([]byte, []int) {
+// Deprecated: Use OriginalUrlRequest.ProtoReflect.Descriptor instead.
+func (*OriginalUrlRequest) Descriptor() ([]byte, []int) {
 	return file_proto_v1_url_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *OriginalUrl) GetURL() string {
+func (x *OriginalUrlRequest) GetURL() string {
 	if x != nil {
 		return x.URL
 	}
 	return ""
 }
 
-type ShortUrl struct {
+type ShortUrlResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ShortURL string `protobuf:"bytes,1,opt,name=shortURL,proto3" json:"shortURL,omitempty"`
+	URL string `protobuf:"bytes,1,opt,name=URL,proto3" json:"URL,omitempty"`
 }
 
-func (x *ShortUrl) Reset() {
-	*x = ShortUrl{}
+func (x *ShortUrlResponse) Reset() {
+	*x = ShortUrlResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_v1_url_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -84,13 +84,13 @@ func (x *ShortUrl) Reset() {
 	}
 }
 
-func (x *ShortUrl) String() string {
+func (x *ShortUrlResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ShortUrl) ProtoMessage() {}
+func (*ShortUrlResponse) ProtoMessage() {}
 
-func (x *ShortUrl) ProtoReflect() protoreflect.Message {
+func (x *ShortUrlResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_v1_url_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -102,14 +102,108 @@ func (x *ShortUrl) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ShortUrl.ProtoReflect.Descriptor instead.
-func (*ShortUrl) Descriptor() ([]byte, []int) {
+// Deprecated: Use ShortUrlResponse.ProtoReflect.Descriptor instead.
+func (*ShortUrlResponse) Descriptor() ([]byte, []int) {
 	return file_proto_v1_url_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *ShortUrl) GetShortURL() string {
+func (x *ShortUrlResponse) GetURL() string {
 	if x != nil {
-		return x.ShortURL
+		return x.URL
+	}
+	return ""
+}
+
+type OriginalUrlResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	URL string `protobuf:"bytes,1,opt,name=URL,proto3" json:"URL,omitempty"`
+}
+
+func (x *OriginalUrlResponse) Reset() {
+	*x = OriginalUrlResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_v1_url_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *OriginalUrlResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OriginalUrlResponse) ProtoMessage() {}
+
+func (x *OriginalUrlResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_v1_url_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OriginalUrlResponse.ProtoReflect.Descriptor instead.
+func (*OriginalUrlResponse) Descriptor() ([]byte, []int) {
+	return file_proto_v1_url_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *OriginalUrlResponse) GetURL() string {
+	if x != nil {
+		return x.URL
+	}
+	return ""
+}
+
+type ShortUrlRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	URL string `protobuf:"bytes,1,opt,name=URL,proto3" json:"URL,omitempty"`
+}
+
+func (x *ShortUrlRequest) Reset() {
+	*x = ShortUrlRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_v1_url_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ShortUrlRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ShortUrlRequest) ProtoMessage() {}
+
+func (x *ShortUrlRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_v1_url_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ShortUrlRequest.ProtoReflect.Descriptor instead.
+func (*ShortUrlRequest) Descriptor() ([]byte, []int) {
+	return file_proto_v1_url_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ShortUrlRequest) GetURL() string {
+	if x != nil {
+		return x.URL
 	}
 	return ""
 }
@@ -118,20 +212,28 @@ var File_proto_v1_url_proto protoreflect.FileDescriptor
 
 var file_proto_v1_url_proto_rawDesc = []byte{
 	0x0a, 0x12, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x76, 0x31, 0x2f, 0x75, 0x72, 0x6c, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x03, 0x75, 0x72, 0x6c, 0x22, 0x1f, 0x0a, 0x0b, 0x4f, 0x72, 0x69,
-	0x67, 0x69, 0x6e, 0x61, 0x6c, 0x55, 0x72, 0x6c, 0x12, 0x10, 0x0a, 0x03, 0x55, 0x52, 0x4c, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x55, 0x52, 0x4c, 0x22, 0x26, 0x0a, 0x08, 0x53, 0x68,
-	0x6f, 0x72, 0x74, 0x55, 0x72, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x73, 0x68, 0x6f, 0x72, 0x74, 0x55,
-	0x52, 0x4c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73, 0x68, 0x6f, 0x72, 0x74, 0x55,
-	0x52, 0x4c, 0x32, 0x79, 0x0a, 0x11, 0x55, 0x72, 0x6c, 0x53, 0x68, 0x6f, 0x72, 0x74, 0x65, 0x6e,
-	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x31, 0x0a, 0x0e, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x53, 0x68, 0x6f, 0x72, 0x74, 0x55, 0x72, 0x6c, 0x12, 0x10, 0x2e, 0x75, 0x72, 0x6c, 0x2e,
-	0x4f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x61, 0x6c, 0x55, 0x72, 0x6c, 0x1a, 0x0d, 0x2e, 0x75, 0x72,
-	0x6c, 0x2e, 0x53, 0x68, 0x6f, 0x72, 0x74, 0x55, 0x72, 0x6c, 0x12, 0x31, 0x0a, 0x0e, 0x47, 0x65,
-	0x74, 0x4f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x61, 0x6c, 0x55, 0x72, 0x6c, 0x12, 0x0d, 0x2e, 0x75,
-	0x72, 0x6c, 0x2e, 0x53, 0x68, 0x6f, 0x72, 0x74, 0x55, 0x72, 0x6c, 0x1a, 0x10, 0x2e, 0x75, 0x72,
-	0x6c, 0x2e, 0x4f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x61, 0x6c, 0x55, 0x72, 0x6c, 0x42, 0x08, 0x5a,
-	0x06, 0x75, 0x72, 0x6c, 0x2e, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x03, 0x75, 0x72, 0x6c, 0x22, 0x26, 0x0a, 0x12, 0x4f, 0x72, 0x69,
+	0x67, 0x69, 0x6e, 0x61, 0x6c, 0x55, 0x72, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x10, 0x0a, 0x03, 0x55, 0x52, 0x4c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x55, 0x52,
+	0x4c, 0x22, 0x24, 0x0a, 0x10, 0x53, 0x68, 0x6f, 0x72, 0x74, 0x55, 0x72, 0x6c, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x55, 0x52, 0x4c, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x03, 0x55, 0x52, 0x4c, 0x22, 0x27, 0x0a, 0x13, 0x4f, 0x72, 0x69, 0x67, 0x69,
+	0x6e, 0x61, 0x6c, 0x55, 0x72, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x10,
+	0x0a, 0x03, 0x55, 0x52, 0x4c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x55, 0x52, 0x4c,
+	0x22, 0x23, 0x0a, 0x0f, 0x53, 0x68, 0x6f, 0x72, 0x74, 0x55, 0x72, 0x6c, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x55, 0x52, 0x4c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x03, 0x55, 0x52, 0x4c, 0x32, 0x97, 0x01, 0x0a, 0x11, 0x55, 0x72, 0x6c, 0x53, 0x68, 0x6f,
+	0x72, 0x74, 0x65, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x40, 0x0a, 0x0e, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x68, 0x6f, 0x72, 0x74, 0x55, 0x72, 0x6c, 0x12, 0x17, 0x2e,
+	0x75, 0x72, 0x6c, 0x2e, 0x4f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x61, 0x6c, 0x55, 0x72, 0x6c, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x75, 0x72, 0x6c, 0x2e, 0x53, 0x68, 0x6f,
+	0x72, 0x74, 0x55, 0x72, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a,
+	0x0e, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x61, 0x6c, 0x55, 0x72, 0x6c, 0x12,
+	0x14, 0x2e, 0x75, 0x72, 0x6c, 0x2e, 0x53, 0x68, 0x6f, 0x72, 0x74, 0x55, 0x72, 0x6c, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e, 0x75, 0x72, 0x6c, 0x2e, 0x4f, 0x72, 0x69, 0x67,
+	0x69, 0x6e, 0x61, 0x6c, 0x55, 0x72, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42,
+	0x08, 0x5a, 0x06, 0x75, 0x72, 0x6c, 0x2e, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -146,16 +248,18 @@ func file_proto_v1_url_proto_rawDescGZIP() []byte {
 	return file_proto_v1_url_proto_rawDescData
 }
 
-var file_proto_v1_url_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_proto_v1_url_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proto_v1_url_proto_goTypes = []interface{}{
-	(*OriginalUrl)(nil), // 0: url.OriginalUrl
-	(*ShortUrl)(nil),    // 1: url.ShortUrl
+	(*OriginalUrlRequest)(nil),  // 0: url.OriginalUrlRequest
+	(*ShortUrlResponse)(nil),    // 1: url.ShortUrlResponse
+	(*OriginalUrlResponse)(nil), // 2: url.OriginalUrlResponse
+	(*ShortUrlRequest)(nil),     // 3: url.ShortUrlRequest
 }
 var file_proto_v1_url_proto_depIdxs = []int32{
-	0, // 0: url.UrlShortenService.CreateShortUrl:input_type -> url.OriginalUrl
-	1, // 1: url.UrlShortenService.GetOriginalUrl:input_type -> url.ShortUrl
-	1, // 2: url.UrlShortenService.CreateShortUrl:output_type -> url.ShortUrl
-	0, // 3: url.UrlShortenService.GetOriginalUrl:output_type -> url.OriginalUrl
+	0, // 0: url.UrlShortenService.CreateShortUrl:input_type -> url.OriginalUrlRequest
+	3, // 1: url.UrlShortenService.GetOriginalUrl:input_type -> url.ShortUrlRequest
+	1, // 2: url.UrlShortenService.CreateShortUrl:output_type -> url.ShortUrlResponse
+	2, // 3: url.UrlShortenService.GetOriginalUrl:output_type -> url.OriginalUrlResponse
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -170,7 +274,7 @@ func file_proto_v1_url_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_proto_v1_url_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*OriginalUrl); i {
+			switch v := v.(*OriginalUrlRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -182,7 +286,31 @@ func file_proto_v1_url_proto_init() {
 			}
 		}
 		file_proto_v1_url_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ShortUrl); i {
+			switch v := v.(*ShortUrlResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_v1_url_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*OriginalUrlResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_v1_url_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ShortUrlRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -200,7 +328,7 @@ func file_proto_v1_url_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_proto_v1_url_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

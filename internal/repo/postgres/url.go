@@ -23,15 +23,14 @@ func (u *urlRepositoryPG) Create(ctx context.Context, url *entity.URL) error {
 	query := `INSERT INTO url (original_url,short_url) VALUES ($1,$2)`
 
 	_, err := u.Pool.Exec(ctx, query, url.OriginalURL, url.ShortURL)
-
 	return err
 }
 
 func (u *urlRepositoryPG) GetByShortURL(ctx context.Context, url string) (string, error) {
-	query := `SELECT original_url FROM url WHERE short_url`
+	query := `SELECT original_url FROM url WHERE short_url = $1`
 	var originalURL string
 
-	err := u.Pool.QueryRow(ctx, query, originalURL).Scan(&url)
+	err := u.Pool.QueryRow(ctx, query, url).Scan(&originalURL)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return "", pgx.ErrNoRows
@@ -49,7 +48,7 @@ func (u *urlRepositoryPG) GetByOriginalURL(ctx context.Context, url string) (boo
 				WHERE original_url = $1)`
 	var exist bool
 
-	err := u.Pool.QueryRow(ctx, query, exist).Scan(&url)
+	err := u.Pool.QueryRow(ctx, query, url).Scan(&exist)
 	if err != nil {
 		return false, err
 	}

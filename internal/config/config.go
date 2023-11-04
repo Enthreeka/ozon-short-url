@@ -58,7 +58,7 @@ func New() (*Config, error) {
 			TypeServer: os.Getenv("HTTP_TYPE_SERVER"),
 		},
 		GRPCServer: GRPCServer{
-			Port: os.Getenv("GRPC_SERVER_PORTs"),
+			Port: os.Getenv("GRPC_SERVER_PORT"),
 		},
 	}
 

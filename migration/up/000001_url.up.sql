@@ -15,3 +15,4 @@ CREATE TABLE IF NOT EXISTS url
     primary key (id)
 );
 
+SELECT original_url FROM url WHERE short_url = 'E1RJ8_FIda';

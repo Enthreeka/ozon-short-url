@@ -27,8 +27,8 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UrlShortenServiceClient interface {
-	CreateShortUrl(ctx context.Context, in *OriginalUrl, opts ...grpc.CallOption) (*ShortUrl, error)
-	GetOriginalUrl(ctx context.Context, in *ShortUrl, opts ...grpc.CallOption) (*OriginalUrl, error)
+	CreateShortUrl(ctx context.Context, in *OriginalUrlRequest, opts ...grpc.CallOption) (*ShortUrlResponse, error)
+	GetOriginalUrl(ctx context.Context, in *ShortUrlRequest, opts ...grpc.CallOption) (*OriginalUrlResponse, error)
 }
 
 type urlShortenServiceClient struct {
@@ -39,8 +39,8 @@ func NewUrlShortenServiceClient(cc grpc.ClientConnInterface) UrlShortenServiceCl
 	return &urlShortenServiceClient{cc}
 }
 
-func (c *urlShortenServiceClient) CreateShortUrl(ctx context.Context, in *OriginalUrl, opts ...grpc.CallOption) (*ShortUrl, error) {
-	out := new(ShortUrl)
+func (c *urlShortenServiceClient) CreateShortUrl(ctx context.Context, in *OriginalUrlRequest, opts ...grpc.CallOption) (*ShortUrlResponse, error) {
+	out := new(ShortUrlResponse)
 	err := c.cc.Invoke(ctx, UrlShortenService_CreateShortUrl_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -48,8 +48,8 @@ func (c *urlShortenServiceClient) CreateShortUrl(ctx context.Context, in *Origin
 	return out, nil
 }
 
-func (c *urlShortenServiceClient) GetOriginalUrl(ctx context.Context, in *ShortUrl, opts ...grpc.CallOption) (*OriginalUrl, error) {
-	out := new(OriginalUrl)
+func (c *urlShortenServiceClient) GetOriginalUrl(ctx context.Context, in *ShortUrlRequest, opts ...grpc.CallOption) (*OriginalUrlResponse, error) {
+	out := new(OriginalUrlResponse)
 	err := c.cc.Invoke(ctx, UrlShortenService_GetOriginalUrl_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (c *urlShortenServiceClient) GetOriginalUrl(ctx context.Context, in *ShortU
 // All implementations must embed UnimplementedUrlShortenServiceServer
 // for forward compatibility
 type UrlShortenServiceServer interface {
-	CreateShortUrl(context.Context, *OriginalUrl) (*ShortUrl, error)
-	GetOriginalUrl(context.Context, *ShortUrl) (*OriginalUrl, error)
+	CreateShortUrl(context.Context, *OriginalUrlRequest) (*ShortUrlResponse, error)
+	GetOriginalUrl(context.Context, *ShortUrlRequest) (*OriginalUrlResponse, error)
 	mustEmbedUnimplementedUrlShortenServiceServer()
 }
 
@@ -70,10 +70,10 @@ type UrlShortenServiceServer interface {
 type UnimplementedUrlShortenServiceServer struct {
 }
 
-func (UnimplementedUrlShortenServiceServer) CreateShortUrl(context.Context, *OriginalUrl) (*ShortUrl, error) {
+func (UnimplementedUrlShortenServiceServer) CreateShortUrl(context.Context, *OriginalUrlRequest) (*ShortUrlResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateShortUrl not implemented")
 }
-func (UnimplementedUrlShortenServiceServer) GetOriginalUrl(context.Context, *ShortUrl) (*OriginalUrl, error) {
+func (UnimplementedUrlShortenServiceServer) GetOriginalUrl(context.Context, *ShortUrlRequest) (*OriginalUrlResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOriginalUrl not implemented")
 }
 func (UnimplementedUrlShortenServiceServer) mustEmbedUnimplementedUrlShortenServiceServer() {}
@@ -90,7 +90,7 @@ func RegisterUrlShortenServiceServer(s grpc.ServiceRegistrar, srv UrlShortenServ
 }
 
 func _UrlShortenService_CreateShortUrl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(OriginalUrl)
+	in := new(OriginalUrlRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -102,13 +102,13 @@ func _UrlShortenService_CreateShortUrl_Handler(srv interface{}, ctx context.Cont
 		FullMethod: UrlShortenService_CreateShortUrl_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UrlShortenServiceServer).CreateShortUrl(ctx, req.(*OriginalUrl))
+		return srv.(UrlShortenServiceServer).CreateShortUrl(ctx, req.(*OriginalUrlRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _UrlShortenService_GetOriginalUrl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ShortUrl)
+	in := new(ShortUrlRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func _UrlShortenService_GetOriginalUrl_Handler(srv interface{}, ctx context.Cont
 		FullMethod: UrlShortenService_GetOriginalUrl_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UrlShortenServiceServer).GetOriginalUrl(ctx, req.(*ShortUrl))
+		return srv.(UrlShortenServiceServer).GetOriginalUrl(ctx, req.(*ShortUrlRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

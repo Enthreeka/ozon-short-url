@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"github.com/google/uuid"
+	"net/url"
 	"strings"
 )
 
@@ -37,4 +38,21 @@ func GenerateShorterUrl() string {
 
 	// Return short url
 	return builder.String()
+}
+
+func PrependBaseURL(baseURL string, identifier string) (string, error) {
+	var builder strings.Builder
+
+	parsed, err := url.Parse(baseURL)
+	if err != nil {
+		return "", err
+	}
+
+	builder.WriteString(parsed.Scheme)
+	builder.WriteString("://")
+	builder.WriteString(parsed.Host)
+	builder.WriteString("/")
+	builder.WriteString(identifier)
+
+	return builder.String(), nil
 }
