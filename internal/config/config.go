@@ -53,9 +53,9 @@ func New() (*Config, error) {
 			MinIdleConns: parseEnvInt(os.Getenv("REDIS_MIN_IDLE_COONS")),
 		},
 		HTTTPServer: HTTTPServer{
-			Hostname:   os.Getenv("HTTP_HOSTNAME"),
-			Port:       os.Getenv("HTTP_PORT"),
-			TypeServer: os.Getenv("HTTP_TYPE_SERVER"),
+			Hostname:   os.Getenv("HTTP_SERVER_HOSTNAME"),
+			Port:       os.Getenv("HTTP_SERVER_PORT"),
+			TypeServer: os.Getenv("HTTP_SERVER_TYPE_SERVER"),
 		},
 		GRPCServer: GRPCServer{
 			Port: os.Getenv("GRPC_SERVER_PORT"),

@@ -22,3 +22,7 @@ func HandleError(w http.ResponseWriter, err error, statusCode int) {
 func DecodingError(w http.ResponseWriter) {
 	ErrorJSON(w, "body decoding error", http.StatusBadRequest)
 }
+
+func QueryError(w http.ResponseWriter) {
+	ErrorJSON(w, "query request not full", http.StatusBadRequest)
+}

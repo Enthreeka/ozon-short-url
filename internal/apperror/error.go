@@ -20,7 +20,7 @@ type AppError struct {
 }
 
 func (a *AppError) Error() string {
-	return fmt.Sprintf("%s: %v", a.Msg, a.Err)
+	return fmt.Sprintf("%s", a.Msg)
 }
 
 func NewError(msg string, err error) *AppError {
