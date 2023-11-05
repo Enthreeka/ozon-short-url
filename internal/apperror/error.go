@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"google.golang.org/grpc/codes"
+	"net/http"
 	"strings"
 )
 
@@ -42,4 +43,19 @@ func ParseGRPCErrStatusCode(err error) codes.Code {
 	}
 
 	return codes.Internal
+}
+
+func ParseHTTPErrStatusCode(err error) int {
+	switch {
+	case errors.Is(err, ErrURLExist):
+		return http.StatusBadRequest
+	case errors.Is(err, ErrNotFound):
+		return http.StatusNotFound
+	case errors.Is(err, ErrInvalidURL):
+		return http.StatusBadRequest
+	case strings.Contains(err.Error(), "redis"):
+		return http.StatusNotFound
+	}
+
+	return http.StatusInternalServerError
 }
