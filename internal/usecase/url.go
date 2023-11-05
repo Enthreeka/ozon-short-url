@@ -6,6 +6,7 @@ import (
 	"github.com/Enthreeka/ozon-short-url/internal/entity"
 	"github.com/Enthreeka/ozon-short-url/internal/repo"
 	"github.com/Enthreeka/ozon-short-url/pkg/logger"
+	"github.com/google/uuid"
 )
 
 type urlUsecase struct {
@@ -33,14 +34,15 @@ func (u *urlUsecase) CreateShortUrl(ctx context.Context, originalURL string) (st
 
 	identifier := GenerateShorterUrl()
 
-	shortUrl, err := PrependBaseURL(originalURL, identifier)
+	shortURL, err := PrependBaseURL(originalURL, identifier)
 	if err != nil {
 		return "", apperror.ErrInvalidURL
 	}
 
 	url := &entity.URL{
+		ID:          uuid.New().String(),
 		OriginalURL: originalURL,
-		ShortURL:    shortUrl,
+		ShortURL:    shortURL,
 	}
 
 	err = u.urlRepo.Create(ctx, url)
@@ -48,7 +50,7 @@ func (u *urlUsecase) CreateShortUrl(ctx context.Context, originalURL string) (st
 		return "", apperror.NewError("Failed to create short url", err)
 	}
 
-	return shortUrl, nil
+	return shortURL, nil
 }
 
 func (u *urlUsecase) GetOriginalUrl(ctx context.Context, shortURL string) (string, error) {

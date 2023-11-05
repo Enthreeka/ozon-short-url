@@ -20,9 +20,9 @@ func NewURLRepositoryPG(pg *postgres.Postgres) repo.URLRepository {
 }
 
 func (u *urlRepositoryPG) Create(ctx context.Context, url *entity.URL) error {
-	query := `INSERT INTO url (original_url,short_url) VALUES ($1,$2)`
+	query := `INSERT INTO url (id,original_url,short_url) VALUES ($1,$2,$3)`
 
-	_, err := u.Pool.Exec(ctx, query, url.OriginalURL, url.ShortURL)
+	_, err := u.Pool.Exec(ctx, query, url.ID, url.OriginalURL, url.ShortURL)
 	return err
 }
 

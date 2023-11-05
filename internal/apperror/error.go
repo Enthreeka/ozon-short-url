@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"google.golang.org/grpc/codes"
+	"strings"
 )
 
 var (
@@ -36,6 +37,8 @@ func ParseGRPCErrStatusCode(err error) codes.Code {
 		return codes.NotFound
 	case errors.Is(err, ErrInvalidURL):
 		return codes.InvalidArgument
+	case strings.Contains(err.Error(), "redis"):
+		return codes.NotFound
 	}
 
 	return codes.Internal

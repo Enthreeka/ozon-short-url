@@ -6,28 +6,29 @@ import (
 	"github.com/Enthreeka/ozon-short-url/internal/config"
 	pb "github.com/Enthreeka/ozon-short-url/internal/controller/grpc"
 	urlGrpc "github.com/Enthreeka/ozon-short-url/internal/controller/grpc"
-	pg "github.com/Enthreeka/ozon-short-url/internal/repo/postgres"
+	rdsRepo "github.com/Enthreeka/ozon-short-url/internal/repo/redis"
+
 	"github.com/Enthreeka/ozon-short-url/internal/usecase"
 	"github.com/Enthreeka/ozon-short-url/pkg/logger"
-	"github.com/Enthreeka/ozon-short-url/pkg/postgres"
+	"github.com/Enthreeka/ozon-short-url/pkg/redis"
 	"google.golang.org/grpc"
 	"net"
 )
 
 func Run(log *logger.Logger, cfg *config.Config) error {
 	// Connect to PostgreSQL
-	psql, err := postgres.New(context.Background(), 5, cfg.Postgres.URL)
-	if err != nil {
-		log.Fatal("failed to connect PostgreSQL: %v", err)
-	}
-	defer psql.Close()
+	//psql, err := postgres.New(context.Background(), 5, cfg.Postgres.URL)
+	//if err != nil {
+	//	log.Fatal("failed to connect PostgreSQL: %v", err)
+	//}
+	//defer psql.Close()
 
 	// Connect to Redis
-	//rds, err := redis.New(context.Background(), cfg.Redis.Host, cfg.Redis.Password, cfg.Redis.MinIdleConns, cfg.Redis.DB)
-	//if err != nil {
-	//	log.Error("redis is not working: %v", err)
-	//}
-	//defer rds.Close()
+	rds, err := redis.New(context.Background(), cfg.Redis.Host, cfg.Redis.Password, cfg.Redis.MinIdleConns, cfg.Redis.DB)
+	if err != nil {
+		log.Fatal("redis is not working: %v", err)
+	}
+	defer rds.Close()
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", cfg.GRPCServer.Port))
 	if err != nil {
@@ -35,9 +36,11 @@ func Run(log *logger.Logger, cfg *config.Config) error {
 		return err
 	}
 
-	urlRepoPG := pg.NewURLRepositoryPG(psql)
+	//pgRepo "github.com/Enthreeka/ozon-short-url/internal/repo/postgres"
+	//urlRepoPG := pgRepo.NewURLRepositoryPG(psql)
+	urlRepoRDS := rdsRepo.NewURLRepositoryRedis(rds)
 
-	urlUsecase := usecase.NewURLUsecase(urlRepoPG, log)
+	urlUsecase := usecase.NewURLUsecase(urlRepoRDS, log)
 
 	s := grpc.NewServer()
 	urlGrpcServer := urlGrpc.NewUrlSeverHandler(log, urlUsecase)
