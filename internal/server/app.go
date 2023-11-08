@@ -1,4 +1,4 @@
-package app
+package server
 
 import (
 	"context"
@@ -18,7 +18,6 @@ import (
 	"google.golang.org/grpc"
 	"net"
 	"net/http"
-	"os"
 )
 
 type storage struct {
@@ -27,9 +26,8 @@ type storage struct {
 }
 
 func (s *storage) Storage(log *logger.Logger, cfg *config.Config) {
-	storageType := os.Getenv("STORAGE_TYPE")
 
-	switch storageType {
+	switch cfg.Types.StorageType {
 	case "postgres":
 		psql, err := postgres.New(context.Background(), 5, cfg.Postgres.URL)
 		if err != nil {
@@ -42,6 +40,8 @@ func (s *storage) Storage(log *logger.Logger, cfg *config.Config) {
 			log.Fatal("redis is not working: %v", err)
 		}
 		s.Rds = rds
+	default:
+		log.Error("storage not found")
 	}
 }
 
@@ -49,12 +49,12 @@ func Run(log *logger.Logger, cfg *config.Config) error {
 	s := &storage{}
 
 	s.Storage(log, cfg)
-
 	var repo repo.URLRepository
 	if s.Rds != nil {
 		repo = rdsRepo.NewURLRepositoryRedis(s.Rds)
 		defer s.Rds.Close()
-	} else {
+	}
+	if s.Psql != nil {
 		repo = pgRepo.NewURLRepositoryPG(s.Psql)
 		defer s.Psql.Close()
 	}
@@ -62,8 +62,7 @@ func Run(log *logger.Logger, cfg *config.Config) error {
 	repo = mock.NewURLRepositoryMock()
 	urlUsecase := usecase.NewURLUsecase(repo)
 
-	serverType := os.Getenv("SERVER_TYPE")
-	switch serverType {
+	switch cfg.Types.ServerType {
 	case "grpc":
 		s := grpc.NewServer()
 		urlGRPCServer := urlGrpc.NewUrlSeverHandler(log, urlUsecase)
@@ -92,6 +91,8 @@ func Run(log *logger.Logger, cfg *config.Config) error {
 		if err := http.ListenAndServe(cfg.HTTTPServer.Port, mux); err != nil && err != http.ErrServerClosed {
 			log.Fatal("listen: %s\n", err)
 		}
+	default:
+		log.Error("type server not found")
 	}
 
 	return nil

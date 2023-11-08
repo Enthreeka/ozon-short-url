@@ -12,6 +12,12 @@ type (
 		Redis       Redis       `json:"redis"`
 		HTTTPServer HTTTPServer `json:"http_server"`
 		GRPCServer  GRPCServer  `json:"grpc_server"`
+		Types       Types       `json:"types"`
+	}
+
+	Types struct {
+		StorageType string `json:"storage_type"`
+		ServerType  string `json:"server_type"`
 	}
 
 	Postgres struct {
@@ -37,12 +43,16 @@ type (
 )
 
 func New() (*Config, error) {
-	err := godotenv.Load("configs/config.env")
+	err := godotenv.Load("configs/types.env", "configs/config.env")
 	if err != nil {
 		return nil, err
 	}
 
 	config := &Config{
+		Types: Types{
+			StorageType: os.Getenv("STORAGE_TYPE"),
+			ServerType:  os.Getenv("SERVER_TYPE"),
+		},
 		Postgres: Postgres{
 			URL: os.Getenv("POSTGRES_URL"),
 		},
