@@ -43,7 +43,7 @@ func (u *urlRepositoryRedis) GetByShortURL(ctx context.Context, url string) (str
 	return "", nil
 }
 
-func (u *urlRepositoryRedis) GetByOriginalURL(ctx context.Context, url string) (bool, error) {
+func (u *urlRepositoryRedis) IsExistOriginalURL(ctx context.Context, url string) (bool, error) {
 	exists, err := u.Rds.Exists(ctx, url).Result()
 	if err != nil {
 		return false, err

@@ -5,25 +5,25 @@ import (
 	"github.com/Enthreeka/ozon-short-url/internal/apperror"
 	"github.com/Enthreeka/ozon-short-url/internal/entity"
 	"github.com/Enthreeka/ozon-short-url/internal/repo"
-	"github.com/Enthreeka/ozon-short-url/pkg/logger"
 	"github.com/google/uuid"
 )
 
 type urlUsecase struct {
 	urlRepo repo.URLRepository
-
-	log *logger.Logger
 }
 
-func NewURLUsecase(urlRepo repo.URLRepository, log *logger.Logger) URLUsecase {
+func NewURLUsecase(urlRepo repo.URLRepository) URLUsecase {
 	return &urlUsecase{
 		urlRepo: urlRepo,
-		log:     log,
 	}
 }
 
 func (u *urlUsecase) CreateShortUrl(ctx context.Context, originalURL string) (string, error) {
-	exist, err := u.urlRepo.GetByOriginalURL(ctx, originalURL)
+	if !entity.IsUrl(originalURL) {
+		return "", apperror.ErrInvalidURL
+	}
+
+	exist, err := u.urlRepo.IsExistOriginalURL(ctx, originalURL)
 	if err != nil {
 		return "", apperror.NewError("Failed to check original url", err)
 	}

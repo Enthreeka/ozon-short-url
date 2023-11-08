@@ -42,7 +42,7 @@ func (u *urlRepositoryPG) GetByShortURL(ctx context.Context, url string) (string
 	return originalURL, nil
 }
 
-func (u *urlRepositoryPG) GetByOriginalURL(ctx context.Context, url string) (bool, error) {
+func (u *urlRepositoryPG) IsExistOriginalURL(ctx context.Context, url string) (bool, error) {
 	query := `SELECT EXISTS (SELECT 1
 				FROM url
 				WHERE original_url = $1)`

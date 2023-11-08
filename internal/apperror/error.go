@@ -12,6 +12,8 @@ var (
 	ErrURLExist   = NewError("Url already exist", errors.New("url_exist"))
 	ErrNotFound   = NewError("Url not found", errors.New("not_found"))
 	ErrInvalidURL = NewError("Input url invalid", errors.New("invalid_url"))
+
+	ErrFailedCheckURL = NewError("failed to check user in db", errors.New("failed_check"))
 )
 
 type AppError struct {

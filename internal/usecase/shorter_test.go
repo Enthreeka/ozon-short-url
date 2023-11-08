@@ -10,7 +10,6 @@ func TestShorter(t *testing.T) {
 		for i := 0; i < 10; i++ {
 			shortUrl := GenerateShorterUrl()
 			assert.Equal(t, 10, len(shortUrl))
-
 		}
 	})
 }
