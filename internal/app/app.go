@@ -27,13 +27,9 @@ type storage struct {
 }
 
 func (s *storage) Storage(log *logger.Logger, cfg *config.Config) {
-	if len(os.Args) < 3 {
-		log.Fatal("There should be 2 launch flags")
-	}
+	storageType := os.Getenv("STORAGE_TYPE")
 
-	command := os.Args[2]
-
-	switch command {
+	switch storageType {
 	case "postgres":
 		psql, err := postgres.New(context.Background(), 5, cfg.Postgres.URL)
 		if err != nil {
@@ -66,8 +62,8 @@ func Run(log *logger.Logger, cfg *config.Config) error {
 	repo = mock.NewURLRepositoryMock()
 	urlUsecase := usecase.NewURLUsecase(repo)
 
-	command := os.Args[1]
-	switch command {
+	serverType := os.Getenv("SERVER_TYPE")
+	switch serverType {
 	case "grpc":
 		s := grpc.NewServer()
 		urlGRPCServer := urlGrpc.NewUrlSeverHandler(log, urlUsecase)
